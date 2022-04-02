@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour
     }
     private void Movement()
     {
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -2.7f, 2.7f), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -5f, 5f), transform.position.y, transform.position.z);
 
         if (!canMoveForward)
         {
@@ -40,7 +40,7 @@ public class CharacterController : MonoBehaviour
 
         if (isGameStarted)
         {
-            Vector3 forwardMovement = transform.forward * speed * Time.fixedDeltaTime ;
+            Vector3 forwardMovement = transform.forward * speed * Time.fixedDeltaTime *2f;
             body.MovePosition(body.position + forwardMovement);
 
             if (Input.GetMouseButtonDown(0))
@@ -52,9 +52,9 @@ public class CharacterController : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 deltaTouchPosition = Input.mousePosition - firstTouchPosition;
-                direction = new Vector3(deltaTouchPosition.x, 0f, 0f);
+                direction = new Vector3(deltaTouchPosition.x * 15f, 0f, 0f);
 
-                body.velocity = direction.normalized * 8f;
+                body.velocity = direction.normalized * 10f;
             }
             else
             {
