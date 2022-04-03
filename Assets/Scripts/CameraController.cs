@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -11,7 +9,6 @@ public class CameraController : MonoBehaviour
     {
         offset = transform.position - target.transform.position;
     }
-
 
     void LateUpdate()
     {
