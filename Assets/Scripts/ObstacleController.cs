@@ -5,6 +5,7 @@ using DG.Tweening;
 public class ObstacleController : MonoBehaviour
 {
     public ObstacleTypes obstacleTypes;
+    public ParticleSystem particle;
 
     private GameObject player;
     private Camera camera;
@@ -45,7 +46,7 @@ public class ObstacleController : MonoBehaviour
 
     private IEnumerator OnHitPlayer()
     {
-        //playParticle
+        Instantiate(particle, player.transform.position + Vector3.up, Quaternion.identity);
         player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
         player.transform.GetComponent<CharacterController>().canMoveForward = false;
         yield return new WaitForSeconds(.8f);
