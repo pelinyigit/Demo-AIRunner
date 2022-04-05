@@ -10,7 +10,6 @@ public class ObstacleController : MonoBehaviour
     private GameObject player;
     private Camera camera;
 
-  
     public enum ObstacleTypes
     {
         MovingObstacle,
@@ -30,22 +29,14 @@ public class ObstacleController : MonoBehaviour
         player = FindObjectOfType<CharacterController>().gameObject;
         camera = Camera.main;
         MovingObstacle();
-        RotatorObstacle();
         HalfDonutObstacle();
+        RotatorObstacle();
         RotatingPlatformObstacle();
     }
 
     private void MovingObstacle()
     {
         if (obstacleTypes == ObstacleTypes.MovingObstacle)
-        {
-            transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
-        }
-    }
-
-    private void RotatorObstacle()
-    {
-        if (obstacleTypes == ObstacleTypes.Rotator)
         {
             transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
         }
@@ -66,18 +57,57 @@ public class ObstacleController : MonoBehaviour
 
     private void RotatingPlatformObstacle()
     {
-        if (obstacleTypes == ObstacleTypes.RotatingPlatform)
+        int rotateRoute = Random.Range(0, 2);
+
+        if (rotateRoute == 0)
         {
-            transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
+            if (obstacleTypes == ObstacleTypes.RotatingPlatform)
+            {
+                transform.DORotate(new Vector3(transform.rotation.x, transform.rotation.y, 180), 2f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).Play();
+            }
+        }
+        else if (rotateRoute == 1)
+        {
+            if (obstacleTypes == ObstacleTypes.RotatingPlatform)
+            {
+                transform.DORotate(new Vector3(transform.rotation.x, transform.rotation.y, -180), 2f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).Play();
+            }
+        }
+    }
+
+    private void RotatorObstacle()
+    {
+        if (obstacleTypes == ObstacleTypes.Rotator)
+        {
+            transform.DORotate(new Vector3(0f, 180, 0f), 1f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear).Play();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.HalfDonut || obstacleTypes == ObstacleTypes.MovingObstacle || obstacleTypes == ObstacleTypes.StaticObstacle)
         {
             StartCoroutine(OnHitPlayer());
         }
+        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.Rotator)
+        {
+            OnEffectPlayerPhysics();
+        }
+        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatingPlatform)
+        {
+            OnPlayerSpinEffect();
+        }
+    }
+
+    private void OnPlayerSpinEffect()
+    {
+        
+    }
+
+    private void OnEffectPlayerPhysics()
+    {
+        Debug.Log("collide");
+        player.GetComponent<Rigidbody>().AddForce(Vector3.forward);
     }
 
     private IEnumerator OnHitPlayer()
