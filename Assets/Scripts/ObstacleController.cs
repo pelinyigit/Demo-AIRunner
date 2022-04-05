@@ -13,7 +13,10 @@ public class ObstacleController : MonoBehaviour
     public enum ObstacleTypes
     {
         MovingObstacle,
-        StaticObstacle
+        StaticObstacle,
+        HalfDonut,
+        RotatingPlatform,
+        Rotator
     }
 
     void Awake()
@@ -26,11 +29,41 @@ public class ObstacleController : MonoBehaviour
         player = FindObjectOfType<CharacterController>().gameObject;
         camera = Camera.main;
         MovingObstacle();
+        RotatorObstacle();
+        HalfDonutObstacle();
+        RotatingPlatformObstacle();
     }
 
     private void MovingObstacle()
     {
         if (obstacleTypes == ObstacleTypes.MovingObstacle)
+        {
+            transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
+        }
+    }
+
+    private void RotatorObstacle()
+    {
+        if (obstacleTypes == ObstacleTypes.Rotator)
+        {
+            transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
+        }
+    }
+
+    private void HalfDonutObstacle()
+    {
+        if (obstacleTypes == ObstacleTypes.HalfDonut)
+        {
+            transform.GetChild(0).transform.GetChild(0).DOLocalRotate(new Vector3(180, transform.rotation.y, transform.rotation.z), 1f)
+                .SetLoops(-1, LoopType.Incremental)
+                .SetEase(Ease.Linear)
+                .Play();
+        }
+    }
+
+    private void RotatingPlatformObstacle()
+    {
+        if (obstacleTypes == ObstacleTypes.RotatingPlatform)
         {
             transform.DOMoveX(5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).Play();
         }

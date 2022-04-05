@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7153122468938354263}
   - component: {fileID: 6119025655203004914}
   - component: {fileID: 8291076474965882168}
+  - component: {fileID: 978812626853142684}
   m_Layer: 0
   m_Name: RotatingStick
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7498262825884701933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.63, z: 15.8886}
-  m_LocalScale: {x: 1227.4215, y: 1019.7943, z: 197.62978}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &978812626853142684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498262825884701933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a69a1d12e46f8469fb38f9748002b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleTypes: 4
+  particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
