@@ -9,6 +9,7 @@ public class ObstacleController : MonoBehaviour
 
     private GameObject player;
     private Camera camera;
+
   
     public enum ObstacleTypes
     {
@@ -52,12 +53,14 @@ public class ObstacleController : MonoBehaviour
 
     private void HalfDonutObstacle()
     {
+        Sequence sequence = DOTween.Sequence();
         if (obstacleTypes == ObstacleTypes.HalfDonut)
         {
-            transform.GetChild(0).transform.GetChild(0).DOLocalRotate(new Vector3(180, transform.rotation.y, transform.rotation.z), 1f)
-                .SetLoops(-1, LoopType.Incremental)
+            sequence.AppendInterval(3f).Append(transform.GetChild(0).transform.GetChild(0).DOLocalRotate(new Vector3(180, transform.rotation.y, transform.rotation.z), .5f)
+                .SetLoops(3, LoopType.Incremental)
                 .SetEase(Ease.Linear)
-                .Play();
+                .Play()).SetLoops(-1, LoopType.Incremental);
+            ;
         }
     }
 

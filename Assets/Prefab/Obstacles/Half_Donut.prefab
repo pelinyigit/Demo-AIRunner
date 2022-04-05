@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2000461692626046328}
   - component: {fileID: 107456372039608279}
   - component: {fileID: 2403665934762410994}
+  - component: {fileID: 7466356070329676814}
   m_Layer: 0
   m_Name: Half_Donut
   m_TagString: Untagged
@@ -92,6 +93,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3698084, y: 0.83602506, z: 0.08414301}
   m_Center: {x: -0.35273376, y: 0.14737913, z: -0.003400377}
+--- !u!65 &7466356070329676814
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191415285990610882}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.19864844, y: 0.050056323, z: 0.05238756}
+  m_Center: {x: -0.034564693, y: 0.25221333, z: 0.0005811698}
 --- !u!1 &3340239205186784692
 GameObject:
   m_ObjectHideFlags: 0
