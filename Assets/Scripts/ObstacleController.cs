@@ -9,6 +9,7 @@ public class ObstacleController : MonoBehaviour
 
     private GameObject player;
     private Camera camera;
+    private Vector3 forceDirection;
 
     public enum ObstacleTypes
     {
@@ -16,7 +17,8 @@ public class ObstacleController : MonoBehaviour
         StaticObstacle,
         HalfDonut,
         RotatingPlatform,
-        Rotator
+        Rotator,
+        RotatorStick
     }
 
     void Awake()
@@ -89,9 +91,9 @@ public class ObstacleController : MonoBehaviour
         {
             StartCoroutine(OnHitPlayer());
         }
-        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.Rotator)
+        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatorStick)
         {
-            OnEffectPlayerPhysics();
+            StartCoroutine(OnEffectPlayerPhysics());
         }
         else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatingPlatform)
         {
@@ -104,10 +106,23 @@ public class ObstacleController : MonoBehaviour
         
     }
 
-    private void OnEffectPlayerPhysics()
+    private IEnumerator OnEffectPlayerPhysics()
     {
-        Debug.Log("collide");
-        player.GetComponent<Rigidbody>().AddForce(Vector3.forward);
+        forceDirection = transform.localPosition - player.transform.position;
+        camera.GetComponent<CameraController>().target = null;
+        player.GetComponent<Animator>().SetTrigger("Hit");
+        player.GetComponent<BoxCollider>().enabled = false;
+        player.GetComponent<CharacterController>().canMoveForward = false;
+        player.GetComponent<Rigidbody>().useGravity = true;
+        player.GetComponent<Rigidbody>().AddForce(forceDirection * 7f, ForceMode.Impulse);
+        player.GetComponent<Rigidbody>().AddTorque(forceDirection * 3f, ForceMode.Impulse);
+        yield return new WaitForSeconds(1f);
+        player.transform.GetComponent<CharacterController>().canMoveForward = true;
+        player.transform.position = new Vector3(0, 0, 0);
+        player.GetComponent<BoxCollider>().enabled = true;
+        camera.GetComponent<CameraController>().target = player;
+        player.GetComponent<Rigidbody>().useGravity = false;
+        player.GetComponent<Animator>().SetTrigger("Run");
     }
 
     private IEnumerator OnHitPlayer()
@@ -115,7 +130,7 @@ public class ObstacleController : MonoBehaviour
         Instantiate(particle, player.transform.position + Vector3.up, Quaternion.identity);
         player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
         player.transform.GetComponent<CharacterController>().canMoveForward = false;
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(1f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
         player.transform.position = new Vector3(0, 0, 0);
         player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
