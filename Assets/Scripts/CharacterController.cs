@@ -8,6 +8,7 @@ public class CharacterController : MonoBehaviour
     private Rigidbody body;
     private Animator animator;
 
+    public float clampValue;
     public float speed;
     public bool canMoveForward;
     public bool canMoveSideways;
@@ -31,7 +32,7 @@ public class CharacterController : MonoBehaviour
     }
     private void Movement()
     {
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -5f, 5f), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -clampValue, clampValue), transform.position.y, transform.position.z);
 
         if (!canMoveForward)
         {

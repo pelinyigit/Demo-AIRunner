@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1717985302495223081}
   - component: {fileID: 1717985302495223080}
   - component: {fileID: 1907465878}
+  - component: {fileID: 3596058468810322918}
   m_Layer: 0
   m_Name: RotatingPlatform_Purple
   m_TagString: Untagged
@@ -96,3 +97,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleTypes: 3
   particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+--- !u!65 &3596058468810322918
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717985302495223083}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.1}
+  m_Center: {x: 0, y: 0, z: -0.04}

@@ -4,12 +4,13 @@ using DG.Tweening;
 
 public class ObstacleController : MonoBehaviour
 {
+
     public ObstacleTypes obstacleTypes;
     public ParticleSystem particle;
 
+    private Vector3 forceDirection;
     private GameObject player;
     private Camera camera;
-    private Vector3 forceDirection;
 
     public enum ObstacleTypes
     {
@@ -18,7 +19,7 @@ public class ObstacleController : MonoBehaviour
         HalfDonut,
         RotatingPlatform,
         Rotator,
-        RotatorStick
+        RotatorStick,
     }
 
     void Awake()
@@ -93,20 +94,21 @@ public class ObstacleController : MonoBehaviour
         }
         else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatorStick)
         {
-            StartCoroutine(OnEffectPlayerPhysics());
+            StartCoroutine(OnRotatorHit());
         }
         else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatingPlatform)
         {
-            OnPlayerSpinEffect();
+            OnSpinOut();
         }
     }
 
-    private void OnPlayerSpinEffect()
+    private void OnSpinOut()
     {
-        
+        player.GetComponent<CharacterController>().clampValue = 10;
+        player.transform.DOMoveX(transform.rotation.z * 5f, 2f).Play();
     }
 
-    private IEnumerator OnEffectPlayerPhysics()
+    public IEnumerator OnRotatorHit()
     {
         forceDirection = transform.localPosition - player.transform.position;
         camera.GetComponent<CameraController>().target = null;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4188335450823835894}
   - component: {fileID: 4188335450823835895}
   - component: {fileID: 348374292}
+  - component: {fileID: 5768962271871911221}
   m_Layer: 0
   m_Name: RotatingPlatform_Orange
   m_TagString: Untagged
@@ -96,3 +97,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleTypes: 3
   particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+--- !u!65 &5768962271871911221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188335450823835888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.1}
+  m_Center: {x: 0, y: 0, z: -0.13}
