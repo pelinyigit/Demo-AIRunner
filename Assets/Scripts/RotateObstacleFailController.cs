@@ -17,7 +17,7 @@ public class RotateObstacleFailController : MonoBehaviour
         {
             //TODO: Force out 
             //TODO: Clamp Value decrease at the end 
-            obstacleController.StartCoroutine(obstacleController.OnRotatorHit());
+            obstacleController.StartCoroutine(obstacleController.OnRotatorHit(new Vector3(transform.position.x - other.transform.position.x, 5f, 0f), 3f));
         }
     }
 

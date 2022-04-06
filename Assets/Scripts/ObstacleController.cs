@@ -7,8 +7,7 @@ public class ObstacleController : MonoBehaviour
 
     public ObstacleTypes obstacleTypes;
     public ParticleSystem particle;
-
-    private Vector3 forceDirection;
+    
     private GameObject player;
     private Camera camera;
 
@@ -94,7 +93,7 @@ public class ObstacleController : MonoBehaviour
         }
         else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatorStick)
         {
-            StartCoroutine(OnRotatorHit());
+            StartCoroutine(OnRotatorHit( new Vector3(player.transform.position.x + transform.rotation.y, 5f, 2f), 5f));
         }
         else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatingPlatform)
         {
@@ -108,23 +107,22 @@ public class ObstacleController : MonoBehaviour
         player.transform.DOMoveX(transform.rotation.z * 5f, 2f).Play();
     }
 
-    public IEnumerator OnRotatorHit()
+    public IEnumerator OnRotatorHit(Vector3 forceDirection, float force)
     {
-        forceDirection = transform.localPosition - player.transform.position;
+        player.GetComponent<Rigidbody>().useGravity = true;
         camera.GetComponent<CameraController>().target = null;
         player.GetComponent<Animator>().SetTrigger("Hit");
-        player.GetComponent<BoxCollider>().enabled = false;
+        player.GetComponent<BoxCollider>().isTrigger = false;
         player.GetComponent<CharacterController>().canMoveForward = false;
-        player.GetComponent<Rigidbody>().useGravity = true;
-        player.GetComponent<Rigidbody>().AddForce(forceDirection * 7f, ForceMode.Impulse);
-        player.GetComponent<Rigidbody>().AddTorque(forceDirection * 3f, ForceMode.Impulse);
-        yield return new WaitForSeconds(1f);
+        player.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
+        player.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
+        yield return new WaitForSeconds(1.5f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
+        player.GetComponent<Animator>().SetTrigger("Run");
         player.transform.position = new Vector3(0, 0, 0);
-        player.GetComponent<BoxCollider>().enabled = true;
+        player.GetComponent<BoxCollider>().isTrigger = true;
         camera.GetComponent<CameraController>().target = player;
         player.GetComponent<Rigidbody>().useGravity = false;
-        player.GetComponent<Animator>().SetTrigger("Run");
     }
 
     private IEnumerator OnHitPlayer()
