@@ -104,7 +104,7 @@ public class ObstacleController : MonoBehaviour
     private void OnSpinOut()
     {
         player.GetComponent<CharacterController>().clampValue = 10;
-        player.transform.DOMoveX(transform.rotation.z * 5f, 2f).Play();
+        player.GetComponent<Rigidbody>().AddForce(new Vector3((player.transform.position.x - transform.localRotation.z) *3f, 0f, 0f), ForceMode.Impulse);
     }
 
     public IEnumerator OnRotatorHit(Vector3 forceDirection, float force)
