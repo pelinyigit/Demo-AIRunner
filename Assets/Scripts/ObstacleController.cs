@@ -49,7 +49,7 @@ public class ObstacleController : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         if (obstacleTypes == ObstacleTypes.HalfDonut)
         {
-            sequence.AppendInterval(3f).Append(transform.GetChild(0).transform.GetChild(0).DOLocalRotate(new Vector3(180, transform.rotation.y, transform.rotation.z), .5f)
+            sequence.AppendInterval(3f).Append(transform.DOLocalRotate(new Vector3(270f, 0f, 0f), .5f)
                 .SetLoops(3, LoopType.Incremental)
                 .SetEase(Ease.Linear)
                 .Play()).SetLoops(-1, LoopType.Incremental);
@@ -103,7 +103,6 @@ public class ObstacleController : MonoBehaviour
 
     private void OnSpinOut()
     {
-        player.GetComponent<CharacterController>().clampValue = 10;
         player.GetComponent<Rigidbody>().AddForce(new Vector3((player.transform.position.x - transform.localRotation.z) *3f, 0f, 0f), ForceMode.Impulse);
     }
 
@@ -119,7 +118,7 @@ public class ObstacleController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
         player.GetComponent<Animator>().SetTrigger("Run");
-        player.transform.position = new Vector3(0, 0, 0);
+        player.transform.position = new Vector3(0, 4.5f, 0);
         player.GetComponent<BoxCollider>().isTrigger = true;
         camera.GetComponent<CameraController>().target = player;
         player.GetComponent<Rigidbody>().useGravity = false;
@@ -132,7 +131,7 @@ public class ObstacleController : MonoBehaviour
         player.transform.GetComponent<CharacterController>().canMoveForward = false;
         yield return new WaitForSeconds(1f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        player.transform.position = new Vector3(0, 0, 0);
+        player.transform.position = new Vector3(0, 4.5f, 0);
         player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
     }
 }
