@@ -118,7 +118,7 @@ public class ObstacleController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
         player.GetComponent<Animator>().SetTrigger("Run");
-        player.transform.position = new Vector3(0, 4.5f, 0);
+        player.transform.position = new Vector3(0, 4.25f, 0);
         player.GetComponent<BoxCollider>().isTrigger = true;
         camera.GetComponent<CameraController>().target = player;
         player.GetComponent<Rigidbody>().useGravity = false;
@@ -131,7 +131,7 @@ public class ObstacleController : MonoBehaviour
         player.transform.GetComponent<CharacterController>().canMoveForward = false;
         yield return new WaitForSeconds(1f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        player.transform.position = new Vector3(0, 4.5f, 0);
+        player.transform.position = new Vector3(0, 4.25f, 0);
         player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
     }
 }
