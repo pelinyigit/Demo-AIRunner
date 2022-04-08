@@ -9,6 +9,7 @@ public class RankController : MonoBehaviour
     private GameObject player;
 
     public TextMeshProUGUI tmp;
+    public GameObject[] opponents;
 
     void Start()
     {
@@ -17,11 +18,25 @@ public class RankController : MonoBehaviour
 
     void Update()
     {
-        RankCharacters();
+        if (player.GetComponent<CharacterController>().isGameStarted)
+        {
+            RankCharacters();
+        }
     }
 
     private void RankCharacters()
     {
+        foreach (GameObject opponentRank in opponents)
+        {
+            if (player.transform.position.z > opponents[opponents.Length -1].transform.position.z)
+            {
+                Debug.Log("player 1.");
+            }
+            else
+            {
+                Debug.Log("opponent ");
+            }
+        }
         //tmp.text = rank
     }
 }
