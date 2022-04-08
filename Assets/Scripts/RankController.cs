@@ -28,13 +28,9 @@ public class RankController : MonoBehaviour
     {
         foreach (GameObject opponentRank in opponents)
         {
-            if (player.transform.position.z > opponents[opponents.Length -1].transform.position.z)
+            for (int i = 0; i < opponents.Length; i++)
             {
-                Debug.Log("player 1.");
-            }
-            else
-            {
-                Debug.Log("opponent ");
+
             }
         }
         //tmp.text = rank
