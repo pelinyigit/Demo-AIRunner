@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4710999958673536854}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stationary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2000461692626046328}
   - component: {fileID: 7466356070329676814}
-  m_Layer: 0
+  - component: {fileID: 641631570}
+  m_Layer: 10
   m_Name: Half_Donut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +78,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.19864844, y: 0.050056323, z: 0.05238756}
   m_Center: {x: -0.034564693, y: 0.25221333, z: 0.0005811698}
+--- !u!114 &641631570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191415285990610882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &3340239205186784692
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +105,7 @@ GameObject:
   - component: {fileID: 230975063973721799}
   - component: {fileID: 1245977383469461392}
   - component: {fileID: 8578213461420242591}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Half_Donut_Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +186,7 @@ GameObject:
   - component: {fileID: 219172983206374342}
   - component: {fileID: 109765235955399397}
   - component: {fileID: 6989169509883062678}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Half_Donut_Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +267,7 @@ GameObject:
   - component: {fileID: 936302765235213340}
   - component: {fileID: 4564580008049296271}
   - component: {fileID: 5961179413115173526}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MovingStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleTypes: 2
-  particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+  particle: {fileID: 4091734772665756119, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
 --- !u!1 &7103780190357197566
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +329,7 @@ GameObject:
   - component: {fileID: 6616597673709808857}
   - component: {fileID: 3747900913725603961}
   - component: {fileID: 2036711145898797475}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Half_Donut_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +410,7 @@ GameObject:
   - component: {fileID: 6439709852754756815}
   - component: {fileID: 4653985657096471204}
   - component: {fileID: 599319514960269597}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Half_Donut_Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}

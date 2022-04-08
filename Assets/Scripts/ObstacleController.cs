@@ -6,9 +6,10 @@ public class ObstacleController : MonoBehaviour
 {
 
     public ObstacleTypes obstacleTypes;
-    public ParticleSystem particle;
+    public GameObject particle;
     
     private GameObject player;
+    private GameObject opponent;
     private Camera camera;
 
     public enum ObstacleTypes
@@ -29,6 +30,7 @@ public class ObstacleController : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<CharacterController>().gameObject;
+        opponent = FindObjectOfType<OpponentAI>().gameObject;
         camera = Camera.main;
         MovingObstacle();
         HalfDonutObstacle();
@@ -87,51 +89,52 @@ public class ObstacleController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.HalfDonut || obstacleTypes == ObstacleTypes.MovingObstacle || obstacleTypes == ObstacleTypes.StaticObstacle)
+        if ((other.CompareTag("Player") || other.CompareTag("Opponent")) && obstacleTypes == ObstacleTypes.HalfDonut || obstacleTypes == ObstacleTypes.MovingObstacle || obstacleTypes == ObstacleTypes.StaticObstacle)
         {
-            StartCoroutine(OnHitPlayer());
+            StartCoroutine(OnHitPlayer(other.gameObject));
         }
-        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatorStick)
+        else if ((other.CompareTag("Player") || other.CompareTag("Opponent")) && obstacleTypes == ObstacleTypes.RotatorStick)
         {
-            StartCoroutine(OnRotatorHit( new Vector3(player.transform.position.x + transform.rotation.y, 5f, 2f), 5f));
+            StartCoroutine(OnRotatorHit( new Vector3(player.transform.position.x + transform.rotation.y, 5f, 2f), 5f, other.gameObject));
         }
-        else if (other.CompareTag("Player") && obstacleTypes == ObstacleTypes.RotatingPlatform)
+        else if ((other.CompareTag("Player") || other.CompareTag("Opponent")) && obstacleTypes == ObstacleTypes.RotatingPlatform)
         {
-            OnSpinOut();
+            OnSpinOut(other.gameObject);
         }
     }
 
-    private void OnSpinOut()
+    private void OnSpinOut(GameObject gameObject)
     {
-        player.GetComponent<Rigidbody>().AddForce(new Vector3((player.transform.position.x - transform.localRotation.z) *3f, 0f, 0f), ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3((gameObject.transform.position.x - transform.localRotation.z) *3f, 0f, 0f), ForceMode.Impulse);
     }
 
-    public IEnumerator OnRotatorHit(Vector3 forceDirection, float force)
+    public IEnumerator OnRotatorHit(Vector3 forceDirection, float force, GameObject gameObject)
     {
-        player.GetComponent<Rigidbody>().useGravity = true;
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
         camera.GetComponent<CameraController>().target = null;
-        player.GetComponent<Animator>().SetTrigger("Hit");
-        player.GetComponent<BoxCollider>().isTrigger = false;
+        gameObject.GetComponent<Animator>().SetTrigger("Hit");
+        gameObject.GetComponent<BoxCollider>().isTrigger = false;
         player.GetComponent<CharacterController>().canMoveForward = false;
-        player.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
-        player.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
         yield return new WaitForSeconds(1.5f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        player.GetComponent<Animator>().SetTrigger("Run");
-        player.transform.position = new Vector3(0, 4.25f, 0);
-        player.GetComponent<BoxCollider>().isTrigger = true;
+        gameObject.GetComponent<Animator>().SetTrigger("Run");
+        gameObject.transform.position = new Vector3(0, 4.25f, 0);
+        gameObject.GetComponent<BoxCollider>().isTrigger = true;
         camera.GetComponent<CameraController>().target = player;
-        player.GetComponent<Rigidbody>().useGravity = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
     }
 
-    private IEnumerator OnHitPlayer()
+    private IEnumerator OnHitPlayer(GameObject gameObject)
     {
-        Instantiate(particle, player.transform.position + Vector3.up, Quaternion.identity);
-        player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
+        var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
+        gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
         player.transform.GetComponent<CharacterController>().canMoveForward = false;
         yield return new WaitForSeconds(1f);
         player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        player.transform.position = new Vector3(0, 4.25f, 0);
-        player.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
+        gameObject.transform.position = new Vector3(0, 4.25f, 0);
+        gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
+        Destroy(GOparticle, 2f);
     }
 }

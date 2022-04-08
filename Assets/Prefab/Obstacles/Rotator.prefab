@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 264578069707513169}
   - component: {fileID: 6808951049183887433}
   - component: {fileID: 4028213699856206932}
+  - component: {fileID: 175652485}
   m_Layer: 6
   m_Name: Rotator
   m_TagString: Untagged
@@ -112,6 +113,22 @@ CapsuleCollider:
   m_Height: 0.069847696
   m_Direction: 1
   m_Center: {x: 0, y: -0.009719021, z: -0.0000000095367385}
+--- !u!114 &175652485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777519058290867332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &4511638962437923786
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +142,7 @@ GameObject:
   - component: {fileID: 2710168394577150495}
   - component: {fileID: 978812626853142684}
   - component: {fileID: 5329609088536239471}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RotatingStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}

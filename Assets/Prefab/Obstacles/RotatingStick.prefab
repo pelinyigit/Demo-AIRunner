@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6119025655203004914}
   - component: {fileID: 8291076474965882168}
   - component: {fileID: 978812626853142684}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RotatingStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,4 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleTypes: 4
-  particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+  particle: {fileID: 4091734772665756119, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}

@@ -5,6 +5,7 @@ public class PaintController : MonoBehaviour
     public GameObject brush;
     public float brushSize;
     public GameObject percantageCanvas;
+    public GameObject mainUI;
 
     private int width = 10;
     private int height = 10;
@@ -26,6 +27,7 @@ public class PaintController : MonoBehaviour
     private void PaintTheWall()
     {
         percantageCanvas.SetActive(true);
+        mainUI.SetActive(false);
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {

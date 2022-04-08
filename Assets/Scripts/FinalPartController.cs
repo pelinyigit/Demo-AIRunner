@@ -7,13 +7,20 @@ public class FinalPartController : MonoBehaviour
     [HideInInspector]
     public bool isFinished;
 
+    private GameObject player;
+
+    private void Start()
+    {
+        player = FindObjectOfType<CharacterController>().gameObject;    
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Opponent"))
         {
             other.GetComponent<Animator>().SetTrigger("Idle");
-            other.GetComponent<CharacterController>().canMoveForward = false;
-            other.GetComponent<CharacterController>().canMoveSideways = false;
+            player.GetComponent<CharacterController>().canMoveForward = false;
+            player.GetComponent<CharacterController>().canMoveSideways = false;
             Camera.main.GetComponent<CameraController>().OnFinalPart();
             Camera.main.GetComponent<CameraController>().enabled = false;
             isFinished = true;
