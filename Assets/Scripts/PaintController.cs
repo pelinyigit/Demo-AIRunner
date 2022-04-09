@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PaintController : MonoBehaviour
@@ -6,6 +7,8 @@ public class PaintController : MonoBehaviour
     public float brushSize;
     public GameObject percantageCanvas;
     public GameObject mainUI;
+    public TextMeshProUGUI tmp;
+    public RenderTexture rt;
 
     private int width = 10;
     private int height = 10;
@@ -21,6 +24,7 @@ public class PaintController : MonoBehaviour
         if (Input.GetMouseButton(0) && finalPartController.isFinished == true)
         {
             PaintTheWall();
+           // PaintPercentage();
         }
     }
 
@@ -38,7 +42,20 @@ public class PaintController : MonoBehaviour
 
     private void PaintPercentage()
     {
-        float completeArea = 100;
-        float paintedArea = 0;
+        var currentPaint = 1;
+        var totalPaint = (int)Texture.totalTextureMemory;
+        RenderTexture.active = rt;
+
+        var texture2D = new Texture2D(rt.width, rt.height);
+        texture2D.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+
+
+        for (int i = 0; i < (int)Texture.totalTextureMemory; i++)
+        {
+           i = currentPaint;
+        }
+        
+        var neededPercantageValue = currentPaint / totalPaint;
+        tmp.text = neededPercantageValue.ToString();
     }
 }
