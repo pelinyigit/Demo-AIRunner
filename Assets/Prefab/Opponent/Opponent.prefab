@@ -670,7 +670,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5911655262353427227}
-  - component: {fileID: 5911655262353427226}
   m_Layer: 9
   m_Name: Opponent
   m_TagString: Opponent
@@ -693,19 +692,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5911655262353427226
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5911655262353427228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.6648836, z: 2}
-  m_Center: {x: 0, y: 0.2832241, z: 0}
 --- !u!1 &6830556499838001968
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +708,7 @@ GameObject:
   - component: {fileID: 5900316616187726761}
   m_Layer: 9
   m_Name: Girl
-  m_TagString: Untagged
+  m_TagString: Opponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -812,7 +798,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6830556499838001968}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 3
   m_Speed: 8
   m_Acceleration: 15
   avoidancePriority: 50
@@ -824,7 +810,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!1 &7088699644622028181
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class ObstacleController : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<CharacterController>().gameObject;
-        opponent = FindObjectOfType<OpponentAI>().gameObject;
+        opponent = GameObject.FindGameObjectWithTag("Opponent");
         camera = Camera.main;
         MovingObstacle();
         HalfDonutObstacle();
@@ -110,31 +110,71 @@ public class ObstacleController : MonoBehaviour
 
     public IEnumerator OnRotatorHit(Vector3 forceDirection, float force, GameObject gameObject)
     {
-        gameObject.GetComponent<Rigidbody>().useGravity = true;
-        camera.GetComponent<CameraController>().target = null;
-        gameObject.GetComponent<Animator>().SetTrigger("Hit");
-        gameObject.GetComponent<BoxCollider>().isTrigger = false;
-        player.GetComponent<CharacterController>().canMoveForward = false;
-        gameObject.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
-        gameObject.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
-        yield return new WaitForSeconds(1.5f);
-        player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        gameObject.GetComponent<Animator>().SetTrigger("Run");
-        gameObject.transform.position = new Vector3(0, 4.25f, 0);
-        gameObject.GetComponent<BoxCollider>().isTrigger = true;
-        camera.GetComponent<CameraController>().target = player;
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
+        if (gameObject.GetComponent<CharacterController>() == null)
+        {
+            gameObject.GetComponent<Rigidbody>().useGravity = true;
+            gameObject.GetComponent<Animator>().SetTrigger("Hit");
+            gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            gameObject.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
+            yield return new WaitForSeconds(1.5f);
+            gameObject.GetComponent<Animator>().SetTrigger("Run");
+            gameObject.transform.position = new Vector3(0, 4.25f, 0);
+            gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
+        else
+        {
+            gameObject.GetComponent<Rigidbody>().useGravity = true;
+            camera.GetComponent<CameraController>().target = null;
+            gameObject.GetComponent<Animator>().SetTrigger("Hit");
+            gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            gameObject.GetComponent<CharacterController>().canMoveForward = false;
+            gameObject.GetComponent<Rigidbody>().AddForce(forceDirection * force, ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddTorque(forceDirection * force, ForceMode.Impulse);
+            yield return new WaitForSeconds(1.5f);
+            gameObject.transform.GetComponent<CharacterController>().canMoveForward = true;
+            gameObject.GetComponent<Animator>().SetTrigger("Run");
+            gameObject.transform.position = new Vector3(0, 4.25f, 0);
+            gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            camera.GetComponent<CameraController>().target = player;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 
     private IEnumerator OnHitPlayer(GameObject gameObject)
     {
         var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
-        gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
-        player.transform.GetComponent<CharacterController>().canMoveForward = false;
-        yield return new WaitForSeconds(1f);
-        player.transform.GetComponent<CharacterController>().canMoveForward = true;
-        gameObject.transform.position = new Vector3(0, 4.25f, 0);
-        gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
-        Destroy(GOparticle, 2f);
+        if (gameObject.GetComponent<CharacterController>() == null)
+        {
+            if (gameObject.transform.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
+                yield return new WaitForSeconds(1f);
+                Destroy(GOparticle, 2f);
+                gameObject.transform.position = new Vector3(0, 4.25f, -1);
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
+            }
+            else
+            {
+                yield return new WaitUntil(()=> gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true);
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
+                yield return new WaitForSeconds(1f);
+                Destroy(GOparticle, 2f);
+                gameObject.transform.position = new Vector3(0, 4.25f, -1);
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
+            }
+                
+        }
+        else
+        {
+            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
+            gameObject.transform.GetComponent<CharacterController>().canMoveForward = false;
+            yield return new WaitForSeconds(1f);
+            gameObject.transform.GetComponent<CharacterController>().canMoveForward = true;
+            gameObject.transform.position = new Vector3(0, 4.25f, 0);
+            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
+            Destroy(GOparticle, 2f);
+        }
     }
 }

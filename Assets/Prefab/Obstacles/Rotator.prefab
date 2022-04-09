@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleTypes: 4
-  particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+  particle: {fileID: 4091734772665756119, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
 --- !u!136 &4028213699856206932
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -238,4 +238,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleTypes: 5
-  particle: {fileID: 4091734772650837597, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
+  particle: {fileID: 4091734772665756119, guid: 9c2860ba107bcbe4aa381942fbfaf50f, type: 3}
