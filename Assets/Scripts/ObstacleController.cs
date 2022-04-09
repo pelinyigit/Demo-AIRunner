@@ -147,24 +147,8 @@ public class ObstacleController : MonoBehaviour
         var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
         if (gameObject.GetComponent<CharacterController>() == null)
         {
-            if (gameObject.transform.GetComponent<SkinnedMeshRenderer>() != null)
-            {
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
-                yield return new WaitForSeconds(1f);
-                Destroy(GOparticle, 2f);
-                gameObject.transform.position = new Vector3(0, 4.25f, -1);
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
-            }
-            else
-            {
-                yield return new WaitUntil(()=> gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true);
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
-                yield return new WaitForSeconds(1f);
-                Destroy(GOparticle, 2f);
-                gameObject.transform.position = new Vector3(0, 4.25f, -1);
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
-            }
-                
+            gameObject.transform.position = new Vector3(0, 4.25f, -1);
+            Destroy(GOparticle, 2f);
         }
         else
         {
@@ -176,5 +160,6 @@ public class ObstacleController : MonoBehaviour
             gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
             Destroy(GOparticle, 2f);
         }
+            Destroy(GOparticle, 2f);
     }
 }
