@@ -144,14 +144,15 @@ public class ObstacleController : MonoBehaviour
 
     private IEnumerator OnHitPlayer(GameObject gameObject)
     {
-        var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
         if (gameObject.GetComponent<CharacterController>() == null)
         {
+            var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
             gameObject.transform.position = new Vector3(0, 4.25f, -1);
             Destroy(GOparticle, 2f);
         }
         else
         {
+            var GOparticle = Instantiate(particle, gameObject.transform.position + Vector3.up, Quaternion.identity);
             gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = false;
             gameObject.transform.GetComponent<CharacterController>().canMoveForward = false;
             yield return new WaitForSeconds(1f);
@@ -160,6 +161,5 @@ public class ObstacleController : MonoBehaviour
             gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().enabled = true;
             Destroy(GOparticle, 2f);
         }
-            Destroy(GOparticle, 2f);
     }
 }
